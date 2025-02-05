@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입 페이지</title>
+</head>
+<body>
+	<form action="/joinMember" method="get">
+		<fieldset>
+			<legend>기본 정보</legend>
+			<label for="user_name">이름</label>
+			<input type="text" name="userName" id="user_name">
+			<br>
+			성별 : 
+			<br>
+			<input type="radio" name="userGender" id="male" value="1">
+			<label for="male">남성</label>
+			<input type="radio" name="userGender" id="female" value="2">
+			<label for="female">여성</label>
+			<br>
+			<label for="user_age">나이</label>
+			<input type="number" name="userAge" id="user_age">
+		</fieldset>
+		<fieldset>
+			<legend>취미</legend>
+		    <input type="checkbox" name="hobby" id="base" value="1">
+		    <label for="base">야구</label>
+		    <input type="checkbox" name="hobby" id="basket" value="2">
+		    <label for="basket">농구</label>
+		    <input type="checkbox" name="hobby" id="soccer" value="3">
+		    <label for="soccer">축구</label>
+		</fieldset>
+		<input type="submit" value="회원가입">
+		<input type="reset" value="다시입력">
+	</form>
+</body>
+</html>
