@@ -7,6 +7,7 @@
 <title>도서 대출하기</title>
 </head>
 <body>
+	<h1>도서 대출 내역</h1>
 	<form method="post" name="bookFrm" id="bookFrm" action="/borrow">
 	<fieldset>
         <legend>고객 정보</legend>
