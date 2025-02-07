@@ -31,9 +31,19 @@
     <fieldset>
         <legend>대출 기간</legend>
         <label>대출 기간(일) : </label>
-        <input type="number" name="rentDate">
+        <input type="number" name="rentDate" id="number">
     </fieldset>
-    <button>대출하기</button>
+    <button onclick="rent();">대출하기</button>
     </form>
+    <script>
+    	let rent = function(){
+    		let num = document.getElementById('number').value;
+    		num = Number(num);
+    		if(num <= 0) {
+				alert('대출기간은 하루 이상이어야합니다.');
+				window.onload();
+			}
+    	}
+    </script>
 </body>
 </html>
