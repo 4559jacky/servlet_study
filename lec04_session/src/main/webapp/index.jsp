@@ -65,8 +65,9 @@
 			<%=memberId %>
 		</li>
 	</ol>
+	<hr>
 	<a href="/productList">상품목록</a>
-	<a href="">장바구니</a>
+	<a href="/cartList">장바구니</a>
 	
 	
 </body>
