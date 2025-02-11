@@ -18,10 +18,14 @@ public class ChangePageServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		RequestDispatcher view = request.getRequestDispatcher("/views/countPage.jsp");
+		// 화면 전환
+		RequestDispatcher view
+//			= request.getRequestDispatcher("/views/countPage.jsp");
+		// 절대 경로로 접근을 해야한다. 어디에서 문제가 생겼는지 찾으려면 getServletContext() 사용
+			= getServletContext().getRequestDispatcher("/views/countPage.jsp");
 		view.forward(request, response);
+		// 속성 정보를 넘겨줄 떄 setAttribute();
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
