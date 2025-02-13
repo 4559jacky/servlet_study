@@ -35,7 +35,7 @@
 						console.log(data);
 						$('#guestbook_list').append("<li>"+data.guestName+" : "+data.guestMessage+"</li>");
 					},
-					error : function(){
+					error : function(){                               
 						alert("서버 요청 중 오류 발생!");
 					}
     			})
