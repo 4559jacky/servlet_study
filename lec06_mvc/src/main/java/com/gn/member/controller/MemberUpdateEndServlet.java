@@ -19,7 +19,7 @@ import com.gn.member.vo.Member;
 @WebServlet(name = "memberUpdateEndServlet", urlPatterns = "/memberUpdateEnd")
 public class MemberUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 
     public MemberUpdateEndServlet() {
         super();
