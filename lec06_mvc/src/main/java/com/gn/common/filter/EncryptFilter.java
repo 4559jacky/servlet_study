@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 
-@WebFilter(servletNames={"memverCreateEndServlet"})
+@WebFilter(servletNames={"memberCreateEndServlet", "memberLoginEndServlet", "memberUpdateEndServlet"})
 public class EncryptFilter extends HttpFilter implements Filter {
        
 	private static final long serialVersionUID = 1L;
