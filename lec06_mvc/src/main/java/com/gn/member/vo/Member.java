@@ -8,6 +8,12 @@ public class Member {
 	
 	public Member() {}
 	
+	public Member(int memberNo, String memberPw, String memberName) {
+		this.memberNo = memberNo;
+		this.memberPw = memberPw;
+		this.memberName = memberName;
+	}
+	
 	public Member(int memberNo, String memberId, String memberPw, String memberName) {
 		this.memberNo = memberNo;
 		this.memberId = memberId;

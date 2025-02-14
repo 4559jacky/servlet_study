@@ -17,7 +17,7 @@ rel="stylesheet" type="text/css">
 				<h3>회원가입 성공! 로그인해주세요.</h3>
 			</div>
 			<div class="others">
-				<a href="#">로그인</a>
+				<a href="/memberLogin">로그인</a>
 			</div>
 		</div>
 	</section>
