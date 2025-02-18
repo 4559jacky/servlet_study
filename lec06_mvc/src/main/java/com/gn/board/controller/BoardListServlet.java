@@ -16,13 +16,29 @@ import com.gn.board.vo.Board;
 @WebServlet("/boardList")
 public class BoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     public BoardListServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Board> resultList = new BoardService().selectBoardList();
+		String boardTitle = request.getParameter("board_title");
+		String nowPage = request.getParameter("nowPage");
+//		String searchType = request.getParameter("search_type");
+//		String searchText = request.getParameter("search_text");
+		
+		Board option = new Board();
+		if(nowPage != null) {
+			option.setNowPage(Integer.parseInt(nowPage));
+		}
+		option.setBoardTitle(boardTitle);
+		
+		int totalData = new BoardService().selectBoardCount(option);
+		option.setTotalData(totalData);
+		
+		List<Board> resultList = new BoardService().selectBoardList(option);
+		
+//		List<Board> resultList = new BoardService().selectBoardList();
 		if(resultList.size() > 0) {
 			for(int i=0; i<resultList.size(); i++) {
 				System.out.println(resultList.get(i));
@@ -33,6 +49,7 @@ public class BoardListServlet extends HttpServlet {
 		RequestDispatcher view
 			= request.getRequestDispatcher("/views/board/list.jsp");
 		request.setAttribute("resultList", resultList);
+		request.setAttribute("paging", option);
 		view.forward(request, response);
 	}
 
