@@ -70,5 +70,8 @@ section {
 	border: 1px solid #adadad;
 	border-radius: 5px;
 	cursor: pointer;
-}	
+}
+tbody tr:hover {
+	cursor: pointer;
+}
 	
