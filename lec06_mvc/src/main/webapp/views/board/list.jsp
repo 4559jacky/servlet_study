@@ -71,37 +71,45 @@
 						<%
 							List<Board> list = (List<Board>)request.getAttribute("resultList");
 							DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm");
-							for(int i=0; i<list.size(); i++) { %>
-								<tr data-board-no="<%=list.get(i).getBoardNo() %>">
-									<td><%=((paging.getNowPage()-1)*paging.getNumPerPage())+(i+1) %></td>
-									<td><%=list.get(i).getBoardTitle() %></td>
-									<td><%=list.get(i).getMemberName() %></td>
-									<td><%=list.get(i).getRegDate().format(dtf) %></td>
-								</tr> 
-						<%	} %>
+						%>
+						<c:forEach var="b" items="${resultList}" varStatus="vs">
+							<%-- <tr data-board-no="<%=list.get(i).getBoardNo() %>"> --%>
+							<tr data-board-no="${b.boardNo}">
+								<%-- <td><%=((paging.getNowPage()-1)*paging.getNumPerPage())+(i+1) %></td> --%>
+								<td>${(paging.nowPage-1)*paging.numPerPage+(vs.index+1)}</td>
+								<%-- <td><%=list.get(i).getBoardTitle() %></td> --%>
+								<td>${b.boardTitle}</td>
+								<%-- <td><%=list.get(i).getMemberName() %></td> --%>
+								<td>${b.memberName}</td>
+								<%-- <td><%=list.get(i).getRegDate().format(dtf) %></td> --%>
+								<td>${b.regDate}</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</section>
-	
-	<%if(paging != null) {%>
+	<c:if test="${not empty paging }">
 		<div class="center">
 			<div class="pagination">
-				<%if(paging.isPrev()) {%>
-					<a href="/boardList?nowPage=<%=(paging.getPageBarStart()-1)%>&board_title=<%=paging.getBoardTitle() == null ? "" : paging.getBoardTitle()%>">&laquo;</a>
-				<%} %>
-				<%for(int i=paging.getPageBarStart(); i<=paging.getPageBarEnd(); i++){ %>
-					<a href="/boardList?nowPage=<%=i%>&board_title=<%=paging.getBoardTitle() == null ? "" : paging.getBoardTitle()%>">
-						<%=i %>
+				<c:if test="${not empty paging.boardTitle}">
+    				<c:set var="boardTitleParam" value="${'&board_title='}${paging.boardTitle}" />
+				</c:if>
+				<c:if test="${paging.prev}">
+					<a href="/boardList?nowPage=${paging.pageBarStart-1}${boardTitleParam}">&laquo;</a>
+				</c:if>
+				<c:forEach var="i" begin="${paging.pageBarStart }" end="${paging.pageBarEnd }">
+					<a href="/boardList?nowPage=${i }${boardTitleParam}">
+						${i }
 					</a>
-				<%} %>
-				<%if(paging.isNext()) {%>
-					<a href="/boardList?nowPage=<%=(paging.getPageBarEnd()+1)%>&board_title=<%=paging.getBoardTitle() == null ? "" : paging.getBoardTitle()%>">&raquo;</a>
-				<%} %>
+				</c:forEach>
+				<c:if test="${paging.next}">
+					<a href="/boardList?nowPage=${paging.pageBarEnd+1}${boardTitleParam}">&raquo;</a>
+				</c:if>
 			</div>
 		</div>
-	<%} %>
+	</c:if>
 	<script>
 		$('.board_list tbody tr').on('click',function(){
 			const boardNo = $(this).data('board-no');

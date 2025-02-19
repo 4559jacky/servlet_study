@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html> 
 <head>
@@ -21,7 +22,8 @@ rel="stylesheet" type="text/css">
 				<form action='/boardCreateEnd' name="create_board_form" method="post" enctype="multipart/form-data">	
 					<input type="text" name="board_title" placeholder="제목을 입력하세요."> <br>
 					<input type="text" name="board_content" placeholder="내용을 입력하세요."><br>
-					<input type="hidden" name="board_writer" value="<%=m.getMemberNo()%>">
+					<%-- <input type="hidden" name="board_writer" value="<%=m.getMemberNo() %>"> --%>
+					<input type="hidden" name="board_writer" value="<c:out value="${member.memberNo}"/>">
 					<input type="file" name="board_file" accept=".png,.jpg,.jpeg"><br>
 					<input type="button" value="등록" onclick="createBoardForm();"> 
 					<input type="reset" value="취소">

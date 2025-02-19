@@ -8,7 +8,7 @@
 <title>상세 화면</title>
 <link href='<%=request.getContextPath()%>/resources/css/board/detail.css' rel="stylesheet" type="text/css">
 </head>
-<body>
+<body> 
 	<%@ include file="/views/include/header.jsp" %>
 	<%@ include file="/views/include/nav.jsp" %>
 	<%
@@ -31,15 +31,18 @@
 						<table>
 							<tr>
 								<td>제목</td>
-								<td><%=board.getBoardTitle() %></td>
+								<%-- <td><%=board.getBoardTitle() %></td> --%>
+								<td>${board.boardTitle}</td>
 							</tr>
 							<tr>
 								<td>내용</td>
-								<td><%=board.getBoardContent() %></td>
+								<%-- <td><%=board.getBoardContent() %></td> --%>
+								<td>${board.boardContent}</td>
 							</tr>
 							<tr>
 								<td>작성자</td>
-								<td><%=board.getMemberName() %></td>
+								<%-- <td><%=board.getMemberName() %></td> --%>
+								<td>${board.memberName}</td>
 							</tr>
 							<tr>
 								<td>등록일</td>
