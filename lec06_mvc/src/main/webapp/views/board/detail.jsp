@@ -23,9 +23,9 @@
 			<div class="board_detail">
 				<ul>
 					<li>
-						<img src="C:\\upload\\board\\<%=board.getNewName() %>">
+						<img src="<%=request.getContextPath()%>/filePath?attach_no=<%=board.getAttachNo() %>">
 						<br>
-						<span></span>
+						<a href="<%=request.getContextPath()%>/fileDownload?attach_no=<%=board.getAttachNo()%>">이미지파일 다운로드</a>
 					</li>
 					<li>
 						<table>
