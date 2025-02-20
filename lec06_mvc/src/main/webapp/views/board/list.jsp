@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- <%@ page import="com.gn.board.vo.Board" %>
 <%@ page import="java.util.*" %> --%>
 <%-- <%@ page import="java.time.format.DateTimeFormatter" %> --%>
@@ -11,7 +13,8 @@
 <title>게시판</title>
 <link href='<%=request.getContextPath()%>/resources/css/board/list.css' rel="stylesheet" type="text/css">
 <link href='<%=request.getContextPath()%>/resources/css/include/paging.css' rel="stylesheet" type="text/css">
-<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
+<%-- <script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script> --%>
+<script src="<c:url value='/resources/js/jquery-3.7.1.js'/>"></script>
 </head>
 <body>
 	<%@ include file="/views/include/header.jsp" %>
@@ -68,29 +71,70 @@
 							</tr>
 						<%} %> --%>
 						<%@ page import="com.gn.board.vo.Board, java.util.*, java.time.format.*" %>
-						<%
+						<c:choose>
+							<c:when test="${not empty resultList}">
+								<c:forEach var="b" items="${resultList}" varStatus="vs">
+									<tr data-board-no="${b.boardNo}">
+										<td>${(paging.nowPage-1)*paging.numPerPage+(vs.index+1)}</td>
+										<td>${b.boardTitle}</td>
+										<td>${b.memberName}</td>
+										<%-- <td>${b.regDate}</td> --%>
+										<fmt:parseDate value="${b.regDate }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="strRegDate"/>
+										<td>
+											<fmt:formatDate value="${strRegDate }" pattern="yyyy-MM-dd HH:mm"/>
+										</td>
+									</tr>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<tr>
+									<td colspan="4">조호된 데이터가 없습니다.</td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
+						
+						<!-- 강사님 코드(JSP 버전) -->
+						<%-- <%
 							List<Board> list = (List<Board>)request.getAttribute("resultList");
 							DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm");
-						%>
-						<c:forEach var="b" items="${resultList}" varStatus="vs">
-							<%-- <tr data-board-no="<%=list.get(i).getBoardNo() %>"> --%>
-							<tr data-board-no="${b.boardNo}">
-								<%-- <td><%=((paging.getNowPage()-1)*paging.getNumPerPage())+(i+1) %></td> --%>
-								<td>${(paging.nowPage-1)*paging.numPerPage+(vs.index+1)}</td>
-								<%-- <td><%=list.get(i).getBoardTitle() %></td> --%>
-								<td>${b.boardTitle}</td>
-								<%-- <td><%=list.get(i).getMemberName() %></td> --%>
-								<td>${b.memberName}</td>
-								<%-- <td><%=list.get(i).getRegDate().format(dtf) %></td> --%>
-								<td>${b.regDate}</td>
-							</tr>
-						</c:forEach>
+							for(int i=0; i<list.size(); i++) { %>
+							<tr data-board-no="<%=list.get(i).getBoardNo() %>">
+							<td><%=((paging.getNowPage()-1)*paging.getNumPerPage())+(i+1) %></td>
+							<td><%=list.get(i).getBoardTitle() %></td>
+							<td><%=list.get(i).getMemberName() %></td>
+							<td><%=list.get(i).getRegDate().format(dtf) %></td>
+							<%}
+						%> --%>
+						
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</section>
 	<c:if test="${not empty paging }">
+		<div class="center">
+			<div class="pagination">
+				<c:if test="${paging.prev}">
+					<c:url var="testUrl" value="boardList">
+						<c:param name="nowPage" value="${paging.pageBarStart-1 }"/>
+						<c:param name="board_title" value="${paging.boardTitle }"/>
+					</c:url>
+					<a href="${testUrl }">&laquo;</a>
+				</c:if>
+				<c:forEach var="i" begin="${paging.pageBarStart }" end="${paging.pageBarEnd }">
+					<a href="/boardList?nowPage=${i }&board_title=${paging.boardTitle}">
+						${i }
+					</a>
+				</c:forEach>
+				<c:if test="${paging.next}">
+					<a href="/boardList?nowPage=${paging.pageBarEnd+1}&board_title=${paging.boardTitle}">&raquo;</a>
+				</c:if>
+			</div>
+		</div>
+	</c:if>
+	
+	<!-- 제목이 없을 때 아예 board_title= 도 안나오게 하기 -->
+	<%-- <c:if test="${not empty paging }">
 		<div class="center">
 			<div class="pagination">
 				<c:if test="${not empty paging.boardTitle}">
@@ -109,7 +153,7 @@
 				</c:if>
 			</div>
 		</div>
-	</c:if>
+	</c:if> --%>
 	<script>
 		$('.board_list tbody tr').on('click',function(){
 			const boardNo = $(this).data('board-no');
