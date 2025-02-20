@@ -152,7 +152,7 @@
 		<h${i}>Hello, World!</h${i}>
 	</c:forEach>
 	
-	<c:forEach var="num" begin="2" end="5" 	>
+	<c:forEach var="num" begin="2" end="5" 	varStatus="vs">
 		<p <c:if test="${vs.first}">style="color:red"</c:if>>
 			인덱스 : ${vs.index}<br>
 			카운트 : ${vs.count}<br>
