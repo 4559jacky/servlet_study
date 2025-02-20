@@ -9,7 +9,7 @@
 <body>
 	<ol>
 		<li>
-			<a href="/boardList">목록 조회</a>목록 조회
+			<a href="/boardList">목록 조회</a>
 		</li>
 		<li>상세 조회</li>
 		<li>수정</li>
