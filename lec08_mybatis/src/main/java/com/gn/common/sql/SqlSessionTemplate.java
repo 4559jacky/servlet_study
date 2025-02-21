@@ -21,9 +21,10 @@ public class SqlSessionTemplate {
 			// 3. SqlSessionFactory 객체 생성
 			SqlSessionFactory factory = sfb.build(is);
 			// 4. SqlSession 객체 생성
-			// 매개변수 -> AutoCommit여부 지정 -> default : true
-			// AutoCommit 끌 때 -> false
-			session = factory.openSession();
+			// (1) 매개변수 X : AutoCommit X
+			// (2) true : AutoCommit O
+			// (3) false : AutoCommit X
+			session = factory.openSession(true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

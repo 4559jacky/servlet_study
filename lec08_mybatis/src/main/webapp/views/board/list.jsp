@@ -10,6 +10,29 @@
 <title>목록 출력</title>
 </head>
 <body>
+	<form action="<c:url value='/boardList'/>" id="searchFrm">
+		<fieldset>
+			<legend>검색하기</legend>
+			<input type="text" name="board_title" placeholder="제목">
+			<input type="text" name="board_content" placeholder="내용">
+			<input type="text" name="member_name" placeholder="작성자">
+			<input type="submit" value="조회">
+		</fieldset>
+		<fieldset>
+			<legend>정렬하기</legend>
+			<select name="order_type" id="order_type">
+				<option value="-1">선택</option>
+				<option value="1">최신순</option>
+				<option value="2">오래된순</option>
+			</select>
+		</fieldset>
+	</form>
+	<script>
+		const orderType = document.getElementById('order_type');
+		orderType.onchange = function(){
+			document.getElementById('searchFrm').submit();
+		}
+	</script>
 	<table border="1">
 		<thead>
 			<tr>
@@ -34,7 +57,6 @@
 					</tr>
 				</c:otherwise>
 			</c:choose>
-				
 	</table>
 </body>
 </html>

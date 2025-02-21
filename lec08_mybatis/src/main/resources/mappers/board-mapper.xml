@@ -11,10 +11,36 @@
 		<result property="regDate" column="reg_date"/>
 		<result property="modDate" column="mod_date"/>
 	</resultMap>
+	
+	<insert id="insertMany" parameterType="list">
+		INSERT INTO board(board_title ,board_content ,board_writer)
+		VALUES
+		<foreach collection="list" item="board" separator=",">
+			(#{board.boardTitle},#{board.boardContent},#{board.boardWriter})
+		</foreach>
+	</insert>
+	
+	<insert id="boardInsert" parameterType="board"
+	useGeneratedKeys="true" keyProperty="boardNo">
+		INSERT INTO `board`(board_title, board_content, board_writer)
+		VALUES (#{boardTitle}, #{boardContent}, #{boardWriter})
+	</insert>
+	<delete id="boardDelete" parameterType="_int">
+		DELETE FROM `board`
+		WHERE board_no = #{boardNo}
+	</delete>
+	<update id="boardUpdate" parameterType="board">
+		UPDATE `board`
+		SET board_title = #{boardTitle}
+		,board_content = #{boardContent}
+		WHERE board_no = #{boardNo}
+	</update>
 	<select id="boardOne" resultMap="boardMap" parameterType="_int">
 		SELECT *
 		FROM `board`
-		WHERE board_no = #{boardNo}
+		<where>
+			board_no = #{boardNo}
+		</where>
 	</select>
 	<select id="boardTwo" resultMap="boardMap" parameterType="map">
 		SELECT *
@@ -28,8 +54,30 @@
 		WHERE board_title = #{boardTitle}
 		AND board_content = #{boardContent}
 	</select>
-	<select id="boardList" resultType="board" resultMap="boardMap">
+	<select id="boardList" resultMap="boardMap" parameterType="board">
 		SELECT *
-		FROM `board`
+		FROM `board` b
+		JOIN `member` m ON b.board_writer = m.member_no
+		<where>
+			<if test='boardTitle != null and boardTitle.equals("") == false'>
+				AND b.board_title LIKE CONCAT('%',#{boardTitle},'%')
+			</if>
+			<if test='boardContent != null and boardContent.equals("") == false'>
+				AND b.board_content LIKE CONCAT('%',#{boardContent},'%')
+			</if>
+			<if test='memberName != null and memberName.equals("") == false'>
+				AND m.member_name LIKE CONCAT('%',#{memberName},'%')
+			</if>
+		</where>
+		<if test='orderType != null and orderType.equals("-1") == false'>
+			<choose>
+				<when test='orderType.equals("1") == true'>
+					ORDER BY reg_date DESC
+				</when>
+				<otherwise>
+					ORDER BY reg_date ASC
+				</otherwise>
+			</choose>
+		</if>
 	</select>
 </mapper>

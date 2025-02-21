@@ -16,9 +16,9 @@ public class BoardService {
 	
 	
 	// 게시글 리스트 가져오기
-	public List<Board> selectBoardList() {
+	public List<Board> selectBoardList(Board option) {
 		SqlSession session = getSqlSession();
-		List<Board> resultList = boardDao.selectBoardList(session);
+		List<Board> resultList = boardDao.selectBoardList(session, option);
 		session.close();
 		return resultList;
 	}
@@ -45,6 +45,36 @@ public class BoardService {
 		Board board = boardDao.selectBoardThree(session, option);
 		session.close();
 		return board;
+	}
+
+	public int updateBoard(Board board) {
+		SqlSession session = getSqlSession();
+		int result = boardDao.updateBoard(session, board);
+		// session.commit(true);
+		// session.rollback();
+		session.close();
+		return result;
+	}
+
+	public int deleteBoard(int board_no) {
+		SqlSession session = getSqlSession();
+		int result = boardDao.deleteBoard(session, board_no);
+		session.close();
+		return result;
+	}
+
+	public int createBoard(Board option) {
+		SqlSession session = getSqlSession();
+		int result = boardDao.createBoard(session, option);
+		session.close();
+		return result;
+	}
+
+	public int insertMany(List<Board> list) {
+		SqlSession session = getSqlSession();
+		int result = boardDao.insertMany(session,list);
+		session.close();
+		return result;
 	}
 
 }

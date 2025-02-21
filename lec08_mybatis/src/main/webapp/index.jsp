@@ -22,15 +22,30 @@
 			<%-- <a href="${url }">상세 조회</a> --%>
 		</li>
 		<li>
-			<c:url value="/boardDetail" var ="detailUrl">
+			<%-- <c:url value="/boardDetail" var ="detailUrl">
 				<c:param name="board_title" value="제목"/>
 				<c:param name="board_content" value="내용"/>
-			</c:url>
-			<a href="${detailUrl }">상세 조회(2)</a>
+			</c:url> --%>
+			<%-- <a href="${detailUrl }">상세 조회(2)</a> --%>
 		</li>
 		<li>수정</li>
 		<li>삭제</li>
-		<li>등록</li>
+		<li>
+			<form action="<c:url value='/boardCreate'/>" method="post">
+				<fieldset>
+					<legend>게시글</legend>
+					<input type="text" name="board_title"><br>
+					<input type="text" name="board_content"><br>
+					<input type="number" name="board_writer"><br>
+					<input type="submit" value="등록">
+				</fieldset>
+			</form>
+		</li>
+		<li>
+			<a href="<c:url value='/boardManyInsert'/>">여러개 한번에 insert하기</a>
+		</li>
+		
+
 	</ol>
 </body>
 </html>
