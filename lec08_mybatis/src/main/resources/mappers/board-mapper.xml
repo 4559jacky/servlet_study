@@ -11,6 +11,23 @@
 		<result property="regDate" column="reg_date"/>
 		<result property="modDate" column="mod_date"/>
 	</resultMap>
+	<select id="boardOne" resultMap="boardMap" parameterType="_int">
+		SELECT *
+		FROM `board`
+		WHERE board_no = #{boardNo}
+	</select>
+	<select id="boardTwo" resultMap="boardMap" parameterType="map">
+		SELECT *
+		FROM `board`
+		WHERE board_title = #{board_title}
+		AND board_content = #{board_content}
+	</select>
+	<select id="boardThree" resultMap="boardMap" parameterType="board">
+		SELECT *
+		FROM `board`
+		WHERE board_title = #{boardTitle}
+		AND board_content = #{boardContent}
+	</select>
 	<select id="boardList" resultType="board" resultMap="boardMap">
 		SELECT *
 		FROM `board`
